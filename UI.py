@@ -17,8 +17,8 @@ class UI:
             self.command()
 
     def command(self):
-        com = input("Введите комманду: ")
-        if com is 'help':
+        com = input("\nВведите комманду: ")
+        if com == "help":
             self.help()
         elif com is '1':
             self.show()
@@ -44,8 +44,7 @@ class UI:
         3 - удалить заметку 
         4 - изменить заметку
         5 - сохранить заметки
-        0 - выход
-        """)
+        0 - выход""")
 
     def show(self):
         if self.notebook.len() == 0:
@@ -60,11 +59,13 @@ class UI:
                     start_date = dt.strptime(start_date, '%Y-%m-%d')
                 except:
                     print("Ошибка")
+                    return
                 end_date = input("Введите дату конца в формате ГГГГ-ММ-ДД: ")
                 try:
                     end_date = dt.strptime(end_date, '%Y-%m-%d')
                 except:
                     print("Ошибка")
+                    return
                 self.notebook.show(start_date, end_date)
 
     def add(self):
@@ -82,10 +83,15 @@ class UI:
         self.notebook.delete_note(self.notebook.get_list()[num])
 
     def save(self):
-        FileManager.save("notes.json", self.notebook.get_list())
+        file_name = input("Введите название файла: ")
+        FileManager.save(file_name, self.notebook.get_list())
+        print("Заметки сохранены")
 
     def exit(self):
-        self.save()
+        FileManager.save("notes.json", self.notebook.get_list())
         self.flag = False
 
-
+    # можно сделать добавление заметок из файла пользователя, но сложно проследить за форматом данных
+    # def add_from_file(self):
+    #     file_name = input("Введите название файла")
+    #     FileManager.read(file_name, self.notebook)

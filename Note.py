@@ -5,12 +5,15 @@ import json
 # Модель заметки
 class Note:
 
-    def __init__(self, title, body, date=datetime.datetime.now(), id=None):
+    def __init__(self, title, body, date=None, id=None):
         self.__title = title
         self.__body = body
-        self.__date = date
+        if date is not None:
+            self.__date = date
+        else:
+            self.__date = datetime.datetime.now()
         if id is None:
-            self.__id = date.microsecond
+            self.__id = self.__date.microsecond
         else:
             self.__id = id
 
@@ -28,9 +31,11 @@ class Note:
 
     def set_title(self, value):
         self.__title = value
+        self.__date = datetime.datetime.now()
 
     def set_body(self, value):
         self.__body = value
+        self.__date = datetime.datetime.now()
 
     # Задание формата вывода
     def __str__(self):
@@ -45,3 +50,9 @@ class Note:
 
     def __ge__(self, other):
         return self.__date >= other.__date
+
+    def __lt__(self, other):
+        return self.__date < other.__date
+
+    def __gt__(self, other):
+        return self.__date > other.__date

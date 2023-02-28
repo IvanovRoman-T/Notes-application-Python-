@@ -3,6 +3,7 @@ import os.path
 
 
 class FileManager:
+    # чтение заметок из файла
     @staticmethod
     def read(file_name, notebook):
         if os.path.exists(file_name):
@@ -11,11 +12,13 @@ class FileManager:
                 for e in a:
                     notebook.create_note_from_json(e)
 
+    # сохранение заметок в файл
     @staticmethod
     def save(file_name, list_):
+        list1 = []
         for i in range(len(list_)):
-            list_[i] = list_[i].to_json()
+            list1.append(list_[i].to_json())
         f = open(file_name, 'w')
-        json.dump(list_, f)
+        json.dump(list1, f)
         f.close()
 

@@ -3,12 +3,14 @@ import datetime
 from Note import Note
 
 
+# модель записной книжки, в которой хранятся заметки
 class Notebook:
     __notebook = None
 
     def __init__(self):
         self.__notebook = []
 
+    # возвращает список заметок
     def get_list(self):
         return self.__notebook
 
@@ -39,6 +41,7 @@ class Notebook:
     def len(self):
         return len(self.__notebook)
 
+    # вывод заметок
     def show(self, start_date=None, end_date=None):
         self.__notebook = sorted(self.__notebook)
         if start_date is None and end_date is None:
