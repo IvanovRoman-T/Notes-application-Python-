@@ -23,10 +23,8 @@ class Notebook:
                                     datetime.datetime.strptime(list_[3], '%Y-%m-%d %H:%M:%S.%f'),
                                     int(list_[0])))
 
-    def delete_note(self, id):
-        for note in self.__notebook:
-            if note.get_id() == id:
-                self.__notebook.remove(note)
+    def delete_note(self, note):
+        self.__notebook.remove(note)
 
     def edit_title(self, id, new_title):
         for note in self.__notebook:
@@ -43,6 +41,12 @@ class Notebook:
 
     def show(self, start_date=None, end_date=None):
         self.__notebook = sorted(self.__notebook)
-        for note in self.__notebook:
-            if start_date <= note.get_date() <= end_date:
+        if start_date is None and end_date is None:
+            for note in self.__notebook:
+                print(self.__notebook.index(note) + 1)
                 print(note, end='\n\n')
+        else:
+            for note in self.__notebook:
+                if start_date <= note.get_date() <= end_date:
+                    print(self.__notebook.index(note) + 1)
+                    print(note, end='\n\n')
